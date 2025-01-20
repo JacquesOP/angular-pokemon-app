@@ -1,40 +1,23 @@
 import { Injectable } from '@angular/core';
 import { Pokemon } from './pokemon';
-import { POKEMONS } from './mock-pokemon-list';
+import { Observable } from 'rxjs';
 
 @Injectable({
-   providedIn: 'root'
+   providedIn: 'root',
 })
-export class PokemonService {
-
-   getPokemonList(): Pokemon[] {
-
-      return POKEMONS;
-   }
 
 
-   getPokemonById(pokemonId: number): Pokemon | undefined {
-
-      return POKEMONS.find(pokemon => pokemon.id == pokemonId);
-   }
+export abstract class PokemonService {
 
 
-   getPokemonTypeList(): string[] {
-
-      return [
-         'Plante', 
-         'Feu', 
-         'Eau', 
-         'Insecte', 
-         'Normal', 
-         'Electrik', 
-         'Poison', 
-         'Fée', 
-         'Vol', 
-         'Combat', 
-         'Psy'
-      ];
-   }
 
    
+   abstract getPokemonList(): Observable<Pokemon[]>;
+
+   abstract getPokemonById(pokemonId: number): Observable<Pokemon>;
+
+   abstract updatePokemon(pokemon: Pokemon): Observable<Pokemon>;
+   abstract deletePokemon(pokemonId: number): Observable<void>;
+   abstract addPokemon(pokemon: Omit<Pokemon, 'id'>): Observable<Pokemon>;
+   abstract getPokemonTypeList(): string[];
 }

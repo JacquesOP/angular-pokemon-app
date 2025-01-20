@@ -29,7 +29,7 @@ export class ListPokemonComponent implements OnInit {
 
 
    ngOnInit() {
-      this.pokemonList = this.pokemonService.getPokemonList();
+      this.pokemonService.getPokemonList().subscribe(pokemonList => this.pokemonList = pokemonList);
    }
 
    selectPokemon(pokemon: Pokemon) {
